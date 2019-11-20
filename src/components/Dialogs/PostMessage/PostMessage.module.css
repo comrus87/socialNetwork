@@ -1,0 +1,11 @@
+.area {
+	display: block;
+	resize: none;
+	width: 350px;
+	min-height: 100px;
+	margin-bottom: 15px;
+}
+
+.btn {
+	display: block;
+}
