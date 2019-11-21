@@ -1,18 +1,16 @@
 import React from 'react';
 import classes from './PostMessage.module.css';
-import {addMessageActionCreator, updateMessageActionCreator} from './../../../redux/dialogsReducer';
-
 
 
 const PostMessage = props => {
 
   let onBtnAddMessage = () => {
-    props.dispatch(addMessageActionCreator());
+    props.addMessage();
   }
 
   let onMessageChange = evt => {
     let text = evt.target.value;
-    props.dispatch(updateMessageActionCreator(text));
+    props.updateMessage(text);
   }
 
 	return (
