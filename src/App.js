@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header/Header.js';
-import Navbar from './components/Navbar/Navbar.js';
-import Profile from './components/Profile/Profile.js';
-import Dialogs from './components/Dialogs/Dialogs.js';
-import News from './components/News/News.js';
-import Music from './components/Music/Music.js';
-import Settings from './components/Settings/Settings.js';
+import Header from './components/Header/Header';
+import Navbar from './components/Navbar/Navbar';
+import Profile from './components/Profile/Profile';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
+import News from './components/News/News';
+import Music from './components/Music/Music';
+import Settings from './components/Settings/Settings';
 
 import {BrowserRouter, Route} from 'react-router-dom';
 
@@ -19,9 +19,9 @@ const App = props => {
 	      <Header />
 	      <Navbar />
 	      <div className="app-wrapper-content">
-	      	<Route path="/dialogs" render={() => <Dialogs store={props.store} />}
+	      	<Route path="/dialogs" render={() => <DialogsContainer />}
 	      	/>
-	      	<Route path="/profile" render={() => <Profile store={props.store} />}
+	      	<Route path="/profile" render={() => <Profile />}
 	      	/>
 	      	<Route path="/news" render={() => <News />} />
 	      	<Route path="/music" render={() => <Music />} />
@@ -34,5 +34,3 @@ const App = props => {
 }
 
 export default App;
-
-// state={props.state.dialogsPage} dispatch={props.dispatch}
