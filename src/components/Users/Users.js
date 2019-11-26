@@ -1,22 +1,31 @@
 import React from 'react';
 import classes from './Users.module.css';
-import * as axios from 'axios';
 import ava from './../../assets/images/ava.png'
 
 
-class Users extends React.Component {
+const Users = props => {
 
-  componentDidMount() {
-      axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-        this.props.setUsers(response.data.items);
-      })
-  }
+    let countPage = Math.ceil(props.totalUsers/props.pageSize);
 
+    let pages = [];
 
-  render() {
+    for (let i=1; i <= countPage; i++) {
+      pages.push(i)
+    }
+
     return (
         <div>
-          { this.props.users.map(u => <div key={u.id}>
+
+          <div className={classes.pagination}>
+            {pages.map(page => {
+              return <span className={props.currentPage === page ? classes.currentPage : ''}
+                            onClick={(evt) => props.onPageChanged(page)}> {page} </span>
+            })
+
+            }
+          </div>
+
+          { props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
                         <img src={u.photos.small != null ? u.photos.small : ava} className={classes.userPhoto} />
@@ -24,10 +33,10 @@ class Users extends React.Component {
                     <div>
                         {u.followed
                             ? <button onClick={() => {
-                                this.props.unfollowUser(u.id)
+                                props.unfollowUser(u.id)
                             }}>Unfollow</button>
                             : <button onClick={() => {
-                                this.props.followUser(u.id)
+                                props.followUser(u.id)
                             }}>Follow</button>}
 
                     </div>
@@ -46,7 +55,6 @@ class Users extends React.Component {
           }
         </div> 
       )    
-  }
 	
 }
 
