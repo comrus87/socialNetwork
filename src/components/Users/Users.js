@@ -1,6 +1,10 @@
 import React from 'react';
 import classes from './Users.module.css';
-import ava from './../../assets/images/ava.png'
+import ava from './../../assets/images/ava.png';
+import {NavLink} from 'react-router-dom';
+import * as axios from 'axios';
+import {delFollowUser, postFollowUser} from './../../api/api';
+
 
 
 const Users = props => {
@@ -27,16 +31,30 @@ const Users = props => {
 
           { props.users.map(u => <div key={u.id}>
                 <span>
-                    <div>
-                        <img src={u.photos.small != null ? u.photos.small : ava} className={classes.userPhoto} />
-                    </div>
+                    <NavLink to={'/profile/'+ u.id}>
+                        <div>
+                            <img src={u.photos.small != null ? u.photos.small : ava} className={classes.userPhoto} />
+                        </div>
+                    </NavLink>
                     <div>
                         {u.followed
                             ? <button onClick={() => {
-                                props.unfollowUser(u.id)
+
+                                delFollowUser(u.id).then(data => {
+                                        if (data.resultCode === 0) {
+                                            props.unfollowUser(u.id)
+                                        }
+                                })
+
                             }}>Unfollow</button>
                             : <button onClick={() => {
-                                props.followUser(u.id)
+
+                                 postFollowUser(u.id).then(data => {
+                                        if (data.resultCode === 0) {
+                                            props.followUser(u.id)
+                                    }
+                                })                              
+
                             }}>Follow</button>}
 
                     </div>
