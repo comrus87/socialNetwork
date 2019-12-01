@@ -2,10 +2,6 @@ import React from 'react';
 import classes from './Users.module.css';
 import ava from './../../assets/images/ava.png';
 import {NavLink} from 'react-router-dom';
-import * as axios from 'axios';
-import {delFollowUser, postFollowUser} from './../../api/api';
-
-
 
 const Users = props => {
 
@@ -38,24 +34,9 @@ const Users = props => {
                     </NavLink>
                     <div>
                         {u.followed
-                            ? <button onClick={() => {
+                            ? <button onClick={() => {props.unfollow(u.id)}} disabled={props.followProgress.some(id => id === u.id)}>Unfollow</button>
 
-                                delFollowUser(u.id).then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.unfollowUser(u.id)
-                                        }
-                                })
-
-                            }}>Unfollow</button>
-                            : <button onClick={() => {
-
-                                 postFollowUser(u.id).then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.followUser(u.id)
-                                    }
-                                })                              
-
-                            }}>Follow</button>}
+                            : <button onClick={() => {props.follow(u.id)}} disabled={props.followProgress.some(id => id === u.id)}>Follow</button>}
 
                     </div>
                 </span>
