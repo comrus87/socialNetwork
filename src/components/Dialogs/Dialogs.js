@@ -13,6 +13,11 @@ const Dialogs = props => {
 
   let messageElements = state.messages.map(m => (<Message text={m.text} />));
 
+
+  let addNewMessage = (values) => {
+    props.addMessage(values.message);
+  }
+
 	return (
 	  <div className={classes.dialog}>
       	<div className={classes.dialogList}>
@@ -21,8 +26,8 @@ const Dialogs = props => {
       	<div className={classes.messagesList}>
           {messageElements}
           <PostMessage addMessage={props.addMessage}
-                       updateMessage={props.updateMessage}
-                       valueMessage={state.valueMessage} />
+                       valueMessage={state.valueMessage} 
+                       onSubmit={addNewMessage} />
       	</div>
       </div>
 	)
