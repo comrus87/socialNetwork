@@ -26,7 +26,6 @@ const Dialogs = props => {
       	<div className={classes.messagesList}>
           {messageElements}
           <PostMessage addMessage={props.addMessage}
-                       valueMessage={state.valueMessage} 
                        onSubmit={addNewMessage} />
       	</div>
       </div>

@@ -1,17 +1,20 @@
 import React from 'react';
 import classes from './PostMessage.module.css';
-import {Field, reduxForm} from 'redux-form'
+import {Field, reduxForm} from 'redux-form';
+import {required, maxLength} from './../../../utils/validators/validators';
+import {Textarea} from './../../common/FormControls/FormControls';
 
+const maxLength100 = maxLength(100)
 
 let PostMessage = props => {
   
 	return (
           <form onSubmit={props.handleSubmit}>
           <div>
-            <Field className={classes.area} 
-                   value={props.valueMessage}
-                   name={'message'}
-                   component={'textarea'}
+            <Field className={classes.area}
+                   name='message'
+                   component={Textarea}
+                   validate={[required, maxLength100]}
             />
           </div>
           <div>

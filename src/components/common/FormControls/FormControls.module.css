@@ -1,0 +1,10 @@
+.formError input,
+.formError textarea {
+	border: 2px solid red;
+}
+
+.formError span {
+	color: red;
+	margin: 5px 0;
+	display: block;
+}
