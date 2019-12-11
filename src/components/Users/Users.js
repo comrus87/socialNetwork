@@ -12,6 +12,7 @@ const Users = props => {
                      pageSize={props.pageSize}  
                      currentPage={props.currentPage}
                      onPageChanged={props.onPageChanged}
+                     portialSize={props.portialSize}
                      />
 
           { props.users.map(u => <User  user={u}

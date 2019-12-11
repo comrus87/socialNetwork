@@ -12,7 +12,8 @@ const SET_FOLLOW_PROGRESS = 'users/SET_FOLLOW_PROGRESS';
 let initialState = {
 	users: [],
 	totalUsers: 0,
-	pageSize: 5,
+	pageSize: 7,
+	portialSize: 17,
 	currentPage: 1,
 	isFetching: false,
 	followProgress: []

@@ -29,6 +29,7 @@ class UsersContainer extends React.Component {
                   unfollow = {this.props.unfollow}
                   onPageChanged = {this.onPageChanged}
                   followProgress = {this.props.followProgress}
+                  portialSize = {this.props.portialSize}
               />
             </div>  
   }
@@ -41,6 +42,7 @@ const mapStateToProps = state => {
     users: state.usersPage.users,
     totalUsers: state.usersPage.totalUsers,
     pageSize: state.usersPage.pageSize,
+    portialSize: state.usersPage.portialSize,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
     followProgress: state.usersPage.followProgress
