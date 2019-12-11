@@ -1,0 +1,8 @@
+.currentPage {
+	font-weight: 700;
+	color: gold;
+}
+
+.pagination span {
+	cursor: pointer;
+}
