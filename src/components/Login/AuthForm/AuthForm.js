@@ -26,6 +26,15 @@ let AuthForm = props => {
         	<div>
         	   <Field type='checkbox' name='rememberMe' component='input' />
         	</div>
+
+            {props.captchaUrl && 
+              <div>
+                <img src={props.captchaUrl} alt='Поле для ввода капчи' />
+                <div>
+                  <Field name='captcha' component='input' validate={[required]} />
+                </div>
+              </div>
+            }
           
             {props.error && <div className={classes.error}> {props.error} </div>}
           

@@ -7,7 +7,7 @@ import {Redirect} from 'react-router-dom';
 
 const Login = props => {
 	let SignIn = formData => {
-		props.login(formData.email, formData.password, formData.rememberMe);
+		props.login(formData.email, formData.password, formData.rememberMe, formData.captcha);
 	};
 
 	if (props.isAuth) {
@@ -18,14 +18,15 @@ const Login = props => {
 	return (
 	  <div className={classes.wpaper}>
         <h1> Зарегистрируйтесь </h1>
-        <AuthForm onSubmit={SignIn} />
+        <AuthForm onSubmit={SignIn} captchaUrl={props.captchaUrl} />
       </div>
 	)
 }
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captchaUrl
   }
 };
 
