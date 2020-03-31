@@ -5,7 +5,7 @@ let initialState = {
 		{id: 1, text: "Hello"},
 		{id: 2, text: "Are you drink?"},
 		{id: 3, text: "Yooooo!!"}
-	],
+	] as Array<MessageType>,
 
 	dialogs: [
 	  {id: 1, name: "Dmitry"},
@@ -13,10 +13,23 @@ let initialState = {
 	  {id: 3, name: "Vadim"},
 	  {id: 4, name: "Sveta"},
 	  {id: 5, name: "Natali"}
-	]
+	] as Array<DialogsType>
 }
 
-const dialogsReducer = (state = initialState, action) => {
+type MessageType = {
+	id: number,
+	text: string
+};
+
+type DialogsType = {
+	id: number,
+	name: string
+};
+
+type InitialStateType = typeof initialState;
+
+
+const dialogsReducer = (state = initialState, action: any): InitialStateType => {
 	switch(action.type) {
 		case ADD_MESSAGE: 
 		let valueMessage = action.message;
@@ -31,6 +44,11 @@ const dialogsReducer = (state = initialState, action) => {
 		}
 }
 
-export const addMessage = (message) => ({type: ADD_MESSAGE, message});
+type addMessageActionType = {
+	type: typeof ADD_MESSAGE,
+	message: string
+}
+
+export const addMessage = (message: string): addMessageActionType => ({type: ADD_MESSAGE, message});
 
 export default dialogsReducer

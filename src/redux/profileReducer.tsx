@@ -1,22 +1,26 @@
 import {profileApi} from './../api/api';
 import {stopSubmit} from 'redux-form';
+import {postsType, contactsType, photosType, profileType} from './../types/types';
 
 const ADD_POST= 'profile/ADD-POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
 const SET_STATUS ='profile/SET_STATUS';
 const SET_PHOTO ='profile/SET_PHOTO';
 
+
 let initialState = {
 	posts: [
 		{id: 1, message: "Hello, it's John", likesCount: 20},
 		{id: 2, message: "Hello, it's Mike", likesCount: 15}
-	],
+	] as Array<postsType>,
 
-	profile: null,
+	profile: null as profileType | null,
 	status: 'default'
 }
 
-const profileReducer = (state = initialState, action) => {
+type initialStateType = typeof initialState;
+
+const profileReducer = (state = initialState, action: any): initialStateType => {
 	switch (action.type) {
 		case ADD_POST:
 		let valueMessage = action.text;
@@ -41,7 +45,7 @@ const profileReducer = (state = initialState, action) => {
 		case SET_PHOTO: 
 			return {
 				...state,
-				profile: {...state.profile, photos: action.photos}
+				profile: {...state.profile, photos: action.photos} as profileType
 			}
 
 		default:
@@ -49,37 +53,57 @@ const profileReducer = (state = initialState, action) => {
 	}
 }
 
-export const addPost = (text) => ({type: ADD_POST, text});
-export const setUserProfile = profile => ({type: SET_USER_PROFILE, profile});
-export const setStatus = status => ({type: SET_STATUS, status});
-export const setPhoto = photos => ({type: SET_PHOTO, photos});
+type AddPostType = {
+	type: typeof ADD_POST,
+	text: string
+}
+
+type SetUserProfileType = {
+	type: typeof SET_USER_PROFILE,
+	profile: profileType
+}
+
+type SetStatusType = {
+	type: typeof SET_STATUS,
+	status: string
+}
+
+type SetPhotoType = {
+	type: typeof SET_PHOTO,
+	photos: photosType
+}
+
+export const addPost = (text: string): AddPostType => ({type: ADD_POST, text});
+export const setUserProfile = (profile: profileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile});
+export const setStatus = (status: string): SetStatusType => ({type: SET_STATUS, status});
+export const setPhoto = (photos: photosType): SetPhotoType => ({type: SET_PHOTO, photos});
 
 
-export const getProfile = (userId) => async (dispatch) => {
+export const getProfile = (userId: number) => async (dispatch: any) => {
 	 let data = await profileApi.getProfileUser(userId);
 	  dispatch(setUserProfile(data));
 };
 
-export const getStatus = (userId) => async (dispatch) => {
+export const getStatus = (userId: number) => async (dispatch: any) => {
 	 let data = await profileApi.getStatus(userId);
 	  dispatch(setStatus(data));
 };
 
-export const updateStatus = (status) => async (dispatch) => {
+export const updateStatus = (status: string) => async (dispatch: any) => {
 	 let response = await profileApi.updateStatus(status);
 	 	if (response.resultCode === 0) {
 	 		dispatch(setStatus(status));
 	 	}
 };
 
-export const savePhoto = (file) => async (dispatch) => {
+export const savePhoto = (file: any) => async (dispatch: any) => {
 	 let response = await profileApi.savePhoto(file);
 	 	if (response.resultCode === 0) {
 	 		dispatch(setPhoto(response.data.photos));
 	 	}
 };
 
-export const saveProfile = (profile) => async (dispatch, getState) => {
+export const saveProfile = (profile: profileType) => async (dispatch: any, getState: any) => {
 	 let userId = getState().auth.userId;
 	 let response = await profileApi.saveProfile(profile);
 	 	if (response.resultCode === 0) {
@@ -90,7 +114,6 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
 			return Promise.reject('Ошибка в поле ' + fieldError);
 	 	}
 };
-
 
 
 
